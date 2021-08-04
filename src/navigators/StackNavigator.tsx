@@ -6,9 +6,12 @@ import {HeaderButton, HeaderButtons, Item} from 'react-navigation-header-buttons
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import History from '../screens/History';
 import { COLORS } from '../theme/Colors';
+import Helpline from '../screens/Helpline';
 
 const HomeStack = createStackNavigator();
 const HistoryStack = createStackNavigator();
+const HelplineStack = createStackNavigator();
+
 
 const IoniconsHeaderButton = (props) => (
   <HeaderButton IconComponent = {Ionicons} iconSize={23} {...props}/>
@@ -69,4 +72,31 @@ const HistoryStackScreen = () => {
   );
 };
 
-export {HomeStackScreen, HistoryStackScreen};
+const HelplineStackScreen = () => {
+  return (
+    <HelplineStack.Navigator
+    screenOptions={{
+              headerStyle : {backgroundColor: COLORS.primary},
+              headerTintColor:'#fff'
+            }}>
+      <HelplineStack.Screen
+        name="HelplineScreen"
+        options={({route,navigation})=>({
+          headerShown: true,
+          headerTitle: 'Helpline',
+          headerLeft: () => {
+            return (
+              <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+                <Item title="Back" iconName='arrow-back' color = 'white' onPress = {()=>{navigation.goBack()}}/>
+                </HeaderButtons>
+            )
+          }
+
+        })}
+        component={Helpline}
+      />
+    </HelplineStack.Navigator>
+  );
+};
+
+export {HomeStackScreen, HistoryStackScreen, HelplineStackScreen};
