@@ -25,9 +25,9 @@ const App = () => {
 
 
   return(
-    status==='loading'?
-    <Splash/>
-    :
+    // status==='loading'?
+    // <Splash/>
+    // :
     <NavigationContainer>
       <DrawerNavigator/>
     </NavigationContainer>

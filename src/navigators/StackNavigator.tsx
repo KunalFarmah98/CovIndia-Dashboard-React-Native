@@ -44,7 +44,11 @@ const HomeStackScreen = () => {
 
 const HistoryStackScreen = () => {
   return (
-    <HistoryStack.Navigator>
+    <HistoryStack.Navigator
+    screenOptions={{
+              headerStyle : {backgroundColor: COLORS.primary},
+              headerTintColor:'#fff'
+            }}>
       <HistoryStack.Screen
         name="HistoryScreen"
         options={({route,navigation})=>({
