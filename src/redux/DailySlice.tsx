@@ -1,28 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import daily from "../api/daily";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DailyData from "../model/DailyData";
 
+// data gives statewise case data for current day
+// history gives national daily stats per date 
 const initialState = {
     status: 'loading',
-    data: []
+    data: [],
+    history: []
 }
 
 export const fetchDailyData = createAsyncThunk('/fetchDailyData', async () => {
+  console.log('calling fetch');
   const response = await daily.get('/data.json')
   const data =  response.data.statewise;
-  console.log(data);
-  await AsyncStorage.setItem('dailyData', data);
-  return data;
+  const history = response.data.cases_time_series.reverse();
+  await AsyncStorage.setItem("dailyData", JSON.stringify(data));
+  await AsyncStorage.setItem("dailyHistory", JSON.stringify(history));
+  return {data,history};
 });
 
 export const getDailyData = createAsyncThunk('/getDailyData', async ()=> {
     const data = await AsyncStorage.getItem('dailyData');
-    return data;
+    const history = await AsyncStorage.getItem('dailyHistory');
+    return {data,history};
 })
 
 
 const dailySlice = createSlice({
-  name: 'todos',
+  name: 'daily',
   initialState,
   reducers: {
     dailyAdded(state, action) {
@@ -43,8 +50,17 @@ const dailySlice = createSlice({
     },
     [fetchDailyData.fulfilled]: (state,action)=>{
       console.log('done');
-      state.data = action.payload
-      console.log(action.payload);
+      state.data = action.payload.data;
+      state.history = action.payload.history;
+      state.status = 'idle'
+    },
+    [getDailyData.pending]: (state,action)=>{
+      state.status = 'loading'
+      console.log('pending');
+    },
+    [getDailyData.fulfilled]: (state,action)=>{
+      state.data = action.payload.data;
+      state.history = action.payload.history;      
       state.status = 'idle'
     }
   }

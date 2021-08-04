@@ -4,33 +4,28 @@ import DrawerNavigator from './navigators/DrawerNavigator';
 import Splash from './components/Splash';
 import store from './Store';
 import {useSelector, useDispatch} from 'react-redux';
-import { getDailyData } from './redux/DailySlice';
+import { fetchDailyData, getDailyData } from './redux/DailySlice';
 import { useEffect } from 'react';
-import daily from './api/daily';
+
+
 const App = () => {
 
-  // const fetch = async ()=> {
-  // const response = await daily.get('/data.json')
-  // const data =  response.data.statewise;
-  // console.log(data);
-  // }
+  const dispatch = useDispatch();
+  let status = useSelector(state=>state.daily.status);
 
-    const dispatch = useDispatch();
-     const data = dispatch(getDailyData);
-  console.log(data);
-  console.log(store.getState());
+  const getData = async () =>{
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    dispatch(fetchDailyData());
+  }
 
   useEffect(()=>{
-    // fetch();
-  // const data = dispatch(getDailyData);
-  // console.log(data);
-  // console.log(store.getState());
+    getData();
   },[]);
 
 
 
   return(
-    store.getState().daily.status==='loading'?
+    status==='loading'?
     <Splash/>
     :
     <NavigationContainer>
