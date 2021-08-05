@@ -7,10 +7,15 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import History from '../screens/History';
 import { COLORS } from '../theme/Colors';
 import Helpline from '../screens/Helpline';
+import WebViewScreen from '../screens/WebViewScreen';
+import CookieManager from '@react-native-cookies/cookies';
+import OptionsMenu from '../components/OptionsMenu';
+
 
 const HomeStack = createStackNavigator();
 const HistoryStack = createStackNavigator();
 const HelplineStack = createStackNavigator();
+const WebViewStack = createStackNavigator();
 
 
 const IoniconsHeaderButton = (props) => (
@@ -36,8 +41,8 @@ const HomeStackScreen = () => {
                 <Item title="Menu" iconName='ios-menu' color = 'white' onPress = {()=>{navigation.toggleDrawer()}}/>
                 </HeaderButtons>
             )
-          }
-
+          },
+          headerRight: ()=>{return <OptionsMenu/>}
         })}
         component={BottomTabNavigator}
       />
@@ -63,8 +68,8 @@ const HistoryStackScreen = () => {
                 <Item title="Menu" iconName='ios-menu' color = 'white' onPress = {()=>{navigation.toggleDrawer()}}/>
                 </HeaderButtons>
             )
-          }
-
+          },
+          headerRight: ()=>{return <OptionsMenu/>}
         })}
         component={History}
       />
@@ -99,4 +104,38 @@ const HelplineStackScreen = () => {
   );
 };
 
-export {HomeStackScreen, HistoryStackScreen, HelplineStackScreen};
+const WebViewStackScreen = () => {
+  return (
+    <WebViewStack.Navigator
+    screenOptions={{
+              headerStyle : {backgroundColor: COLORS.primary},
+              headerTintColor:'#fff'
+            }}>
+      <WebViewStack.Screen
+        name="WebViewScreen"
+        options={({route,navigation})=>({
+          headerShown: true,
+          headerTitle: route.params.title,
+          headerLeft: () => {
+            return (
+              <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+                <Item title="Back" iconName='arrow-back' color = 'white' onPress = {()=>{
+                  CookieManager
+                  .clearAll(true)
+                  .then((res) => {
+                      console.log('CookieManager.clearAll =>', res)
+                      navigation.goBack();
+                  });
+                }}/>
+              </HeaderButtons>
+            )
+          }
+
+        })}
+        component={WebViewScreen}
+      />
+    </WebViewStack.Navigator>
+  );
+};
+
+export {HomeStackScreen, HistoryStackScreen, HelplineStackScreen, WebViewStackScreen};

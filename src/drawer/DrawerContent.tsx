@@ -2,10 +2,12 @@ import React from 'react';
 import {Avatar, Drawer, TouchableRipple} from 'react-native-paper';
 import {DrawerItem, DrawerContentScrollView} from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, Linking} from 'react-native';
 import {COLORS} from '../theme/Colors';
+import Links from '../assets/links';
 
 export function DrawerContent(props) {
+  const links = new Links();
   return (
     <View style={{flex: 1, marginTop: -5}}>
       <DrawerContentScrollView {...props}>
@@ -51,7 +53,7 @@ export function DrawerContent(props) {
               )}
               label="Register for Vaccination"
               onPress={() => {
-                props.navigation.navigate('Dashbaord');
+                props.navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "COWIN Vaccine Registration", link: links.VACCINE_REG}});
               }}
             />
             <DrawerItem
@@ -61,7 +63,7 @@ export function DrawerContent(props) {
               )}
               label="Vaccination Certificate"
               onPress={() => {
-                props.navigation.navigate('Helpline');
+                props.navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "COWIN Vaccine Certificate", link: links.VACCINE_CERT}});
               }}
             />
             <DrawerItem
@@ -71,7 +73,7 @@ export function DrawerContent(props) {
               )}
               label="Vaccination Statistics"
               onPress={() => {
-                props.navigation.navigate('Helpline');
+                props.navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "COWIN Vaccination Dashboard", link: links.VACCINE_STATS}});
               }}
             />
           </Drawer.Section>
@@ -86,7 +88,7 @@ export function DrawerContent(props) {
               )}
               label="Sprinklr Dashboard"
               onPress={() => {
-                props.navigation.navigate('Dashbaord');
+                props.navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "Sprinklr Dashboard", link: links.SPRINKLR_DASH}});
               }}
             />
             <DrawerItem
@@ -96,7 +98,7 @@ export function DrawerContent(props) {
               )}
               label="Covid India Resources"
               onPress={() => {
-                props.navigation.navigate('Helpline');
+                props.navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "Covid India Resources", link: links.COVID_INDIA_RES}});
               }}
             />
             <DrawerItem
@@ -106,7 +108,7 @@ export function DrawerContent(props) {
               )}
               label="Covid India Fighters"
               onPress={() => {
-                props.navigation.navigate('Helpline');
+                props.navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "Covid India Fighters", link: links.COVID_INDIA_FIGHTERS}});
               }}
             />
             <DrawerItem
@@ -116,7 +118,7 @@ export function DrawerContent(props) {
               )}
               label="Hospital Locations"
               onPress={() => {
-                props.navigation.navigate('Helpline');
+                Linking.openURL(links.HOSPITAL_LOC);
               }}
             />
           </Drawer.Section>
@@ -131,7 +133,7 @@ export function DrawerContent(props) {
               )}
               label="MH Covid Help Desk"
               onPress={() => {
-                props.navigation.navigate('Dashbaord');
+                props.navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "MH Covid Help Desk", link: links.MH_COVID_HELP_DESK}});
               }}
             />
             <DrawerItem
@@ -141,7 +143,7 @@ export function DrawerContent(props) {
               )}
               label="Delhi Covid Health Bot"
               onPress={() => {
-                props.navigation.navigate('Helpline');
+              Linking.openURL(links.DELHI_COVID_HEALTH_BOT);
               }}
             />
           </Drawer.Section>
