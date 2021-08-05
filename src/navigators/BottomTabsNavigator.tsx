@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
 import Dashboard from '../screens/Dashboard';
 import { HistoryStackScreen } from './StackNavigator';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS } from '../theme/Colors';
 
 const Tabs =
@@ -29,14 +29,14 @@ const BottomTabNavigator = () => {
         title: 'Dashboard',
         tabBarLabel: 'Dashboard',
         tabBarIcon: ({color,size})=>(
-          <Ionicons name = 'home' color = {color} size = {23} />
+          <Icon name = 'poll' color = {color} size = {20} />
         ),
       }}/>
       <Tabs.Screen name="History" component={HistoryStackScreen} options = {{
         title: 'History',
         tabBarLabel: 'History',
         tabBarIcon: ({color,size})=>(
-          <Ionicons name = 'timer' color = {color} size = {23} />
+          <Icon name = 'update' color = {color} size = {23} />
         ),
       }}/>
     </Tabs.Navigator>

@@ -26,7 +26,7 @@ export function DrawerContent(props) {
               focused
               activeTintColor={COLORS.primary}
               icon={({color, size}) => (
-                <Icon name="monitor-dashboard" color={color} size={size} />
+                <Icon name="poll" color={color} size={20} />
               )}
               label="Dashboard"
               onPress={() => {

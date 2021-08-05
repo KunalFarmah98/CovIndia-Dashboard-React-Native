@@ -3,73 +3,91 @@ import {View, Text, StyleSheet} from 'react-native';
 import { COLORS } from "../theme/Colors";
 import Statistics from "./Statistics";
 import Pie from 'react-native-pie'
+import { useSelector } from "react-redux";
 
 
 
-const Summary = ({total, active, recovered, deceased, currActive, currRecovered, currDeceased})=>{
+const Summary = ()=>{
 
-    const getPercentage = (val:String ,total:String) => {
-    return (Number(val)/Number(total))*100
+      const data = useSelector(state=>state.daily.data[0]);
+      console.log(data);
+
+      const getLocaleNumber = (val:String)=>{
+        if(val===undefined)
+        return 0;
+        val=  val.toString();
+        var lastThree = val.substring(val.length-3);
+        var otherNumbers = val.substring(0,val.length-3);
+        if(otherNumbers != '')
+            lastThree = ',' + lastThree;
+        var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+        return res;
     }
 
-    const chart_wh = 250
-    const series = [Number(active), Number(recovered), Number(deceased)]
-    const sliceColor = [COLORS.pieBlue, COLORS.pieGreen, COLORS.pieRed];
+    const getPercentage = (val:String ,total:String) => {
+            let num_ = parseInt(val.toString());
+            let dem_ = parseInt(total.toString());
+            let fraction = num_/dem_;
+            return parseInt(Math.round(fraction*100).toString());
+    }
+
+    const active_p = getPercentage(data.active,data.confirmed);
+    let recovered_p = getPercentage(data.recovered,data.confirmed);
+    const deceased_p = getPercentage(data.deaths,data.confirmed);
+
+    // making sum = 100 in case of wrong roundoff
+    recovered_p += (100-(active_p+deceased_p+recovered_p));
+
+    console.log({active_p,recovered_p, deceased_p});
+
     return (
         <View style = {styles.card}>
-
             <View style = {styles.header1}>
                 <Text style = {styles.india}>India</Text>
-                <Text style = {styles.totalCases}>Total Cases:{'\n'}{getLocaleNumber(total)}</Text>
+                <Text style = {styles.totalCases}>Total Cases:{'\n'}{getLocaleNumber(data.confimed)}</Text>
             </View>
             <View style = {{alignItems:'center', marginVertical:10}}>
             <Pie
-              radius={80}
+              radius={90}
+              innerRadius={50}
               sections={[
                 {
-                  percentage: getPercentage(active,total),
+                  percentage: active_p,
                   color: COLORS.pieBlue,
                 },
                 {
-                  percentage: getPercentage(recovered,total),
+                  percentage: recovered_p,
                   color: COLORS.pieGreen,
                 },
                 {
-                  percentage: getPercentage(deceased,total),
+                  percentage: deceased_p,
                   color: COLORS.pieRed,
                 },
               ]}
-              strokeCap={'butt'}
+              strokeCap={'round'}
             />
             </View>
 
-            {currActive>0 || currRecovered>0 || currDeceased>0?
-                <Statistics name=  "Recent Statistics" active = {currActive} recovered = {currRecovered} deceased = {currDeceased} format = {getLocaleNumber}/>
+            {data.deltaconfirmed>0 || data.deltarecovered>0 || data.deltadeceased>0?
+                <Statistics name=  "Recent Statistics" active = {data.data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format = {getLocaleNumber}/>
                 :
                 null
             }
 
-            <Statistics name= "Total Statistics" active ={active} recovered={recovered} deceased=  {deceased} format = {getLocaleNumber}/>
+            <Statistics name= "Total Statistics" active ={data.active} recovered={data.recovered} deceased=  {data.deaths} format = {getLocaleNumber}/>
 
         </View>
     );
 }
 
-const getLocaleNumber = (val:String)=>{
-    val=  val.toString();
-    var lastThree = val.substring(val.length-3);
-    var otherNumbers = val.substring(0,val.length-3);
-    if(otherNumbers != '')
-        lastThree = ',' + lastThree;
-    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-    return res;
-}
+
 
 const styles = StyleSheet.create({
     card:{
         borderColor: COLORS.primaryDark,
         borderWidth: 2,
         margin: 10,
+        backgroundColor: 'white',
         borderRadius: 10
     },
     header1:{
