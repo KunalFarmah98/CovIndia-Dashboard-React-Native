@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigator from './navigators/DrawerNavigator';
 import Splash from './components/Splash';
-import store from './Store';
 import {useSelector, useDispatch} from 'react-redux';
 import { fetchDailyData, getDailyData } from './redux/DailySlice';
 import { useEffect } from 'react';
@@ -25,9 +24,9 @@ const App = () => {
 
 
   return(
-    // status==='loading'?
-    // <Splash/>
-    // :
+    status==='loading'?
+    <Splash/>
+    :
     <NavigationContainer>
       <DrawerNavigator/>
     </NavigationContainer>
