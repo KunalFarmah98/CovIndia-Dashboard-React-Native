@@ -14,7 +14,7 @@ const App = () => {
   let historyStatus = useSelector(state=>state.history.status);
 
   const getData = async () =>{
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // await new Promise(resolve => setTimeout(resolve, 1000));
     dispatch(fetchDailyData());
     dispatch(fetchHistoryData());
   }

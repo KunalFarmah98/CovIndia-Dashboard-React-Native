@@ -5,8 +5,8 @@ import { COLORS } from "../theme/Colors";
 
 const HistoryDetailsListItem = ({name,item})=>{
 
-    const data = item.item.item;
-    console.log('props: '+item);
+    const data = item.item;
+    console.log('props: '+data);
     const getLocaleNumber = (val:String)=>{
     if(val===undefined)
         return 0;
@@ -21,8 +21,8 @@ const HistoryDetailsListItem = ({name,item})=>{
 
     return(
             <View style = {styles.card} >
-                <Text style= {styles.date}>{name}</Text>            
-                <Text style = {styles.header}>Total Cases: {data.totalConfirmed}</Text>
+                <Text style= {styles.date}>{data.loc}</Text>            
+                <Text style = {styles.header}>Total Cases: {getLocaleNumber(data.totalConfirmed)}</Text>
                 <View style = {styles.row}>
                     <Text style = {styles.recovered}>Recovered:{'\n'}{getLocaleNumber(data.discharged)}</Text>
                     <Text style = {styles.deceased}>Deceased:{'\n'}{getLocaleNumber(data.deaths)}</Text>
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
     card:{
         borderColor: COLORS.primaryDark,
         borderWidth: 2,
-        margin: 10,
+        marginVertical: 10,
+        marginHorizontal:15,
         backgroundColor: 'white',
         borderRadius: 10,
     },
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     header:{
-        fontSize:16,
+        fontSize:18,
         fontWeight: '700',
         color: COLORS.primaryDark,
         padding: 5,
