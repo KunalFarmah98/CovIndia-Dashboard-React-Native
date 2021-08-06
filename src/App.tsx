@@ -5,15 +5,18 @@ import Splash from './components/Splash';
 import {useSelector, useDispatch} from 'react-redux';
 import { fetchDailyData, getDailyData } from './redux/DailySlice';
 import { useEffect } from 'react';
+import { fetchHistoryData } from './redux/HistorySlice';
 
 const App = () => {
 
   const dispatch = useDispatch();
-  let status = useSelector(state=>state.daily.status);
+  let dailyStatus = useSelector(state=>state.daily.status);
+  let historyStatus = useSelector(state=>state.history.status);
 
   const getData = async () =>{
     await new Promise(resolve => setTimeout(resolve, 1000));
     dispatch(fetchDailyData());
+    dispatch(fetchHistoryData());
   }
 
   useEffect(()=>{
@@ -22,7 +25,7 @@ const App = () => {
 
 
   return(
-    status==='loading'?
+    dailyStatus==='loading'||historyStatus==='loading'?
     <Splash/>
     :
     <NavigationContainer>

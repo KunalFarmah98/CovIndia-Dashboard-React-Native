@@ -24,7 +24,7 @@ const HistoryListItem = ({item})=>{
     return(
         <TouchableOpacity onPress ={()=>{navigation.navigate('HistoryDetail',{title:data.date, date: data.date, summary: data})}}>
             <View style = {styles.card} >
-                <Text style= {styles.date}>{data.date}:</Text>
+                <Text style= {styles.date}>{data.date}</Text>
                 <Text style = {styles.header}>Daily Report:</Text>
                 <View style = {styles.row}>
                     <Text style = {styles.active}>Cases:{'\n'}{getLocaleNumber(data.dailyconfirmed)}</Text>

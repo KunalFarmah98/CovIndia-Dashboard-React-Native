@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     total:{
         color: COLORS.primary,
         fontSize: 17,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: 10,
     }
 })
 export default ListItem;

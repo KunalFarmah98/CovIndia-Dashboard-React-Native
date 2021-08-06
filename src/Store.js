@@ -1,13 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 
 import dailyReducer from './redux/DailySlice';
-// import historyReducer from './redux/historySlice';
+import historyReducer from './redux/HistorySlice';
 
 const store = configureStore({
   reducer: {
     // Define a top-level state field named `todos`, handled by `todosReducer`
     daily: dailyReducer,
-    // history: historyReducer,
+    history: historyReducer,
   },
 });
 

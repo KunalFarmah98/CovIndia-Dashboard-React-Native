@@ -1,17 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import daily from "../api/daily";
+import history from "../api/history";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const initialState = {
     status: 'loading',
-    data: []
+    data: {}
 }
 
 export const fetchHistoryData = createAsyncThunk('/fetchHistoryData', async () => {
-  const response = await daily.get('/data.json')
-  const data =  response.data.statewise;
-  await AsyncStorage.setItem("historyData", JSON.stringify(data));
-  return data;
+  const response = await history.get('/stats/history');
+  const data =  response.data.data;
+  let dateWiseHistory = {};
+  let l = data.length;
+  for(let i=0; i<l; i++){
+    const item = data[i];
+    const day = item["day"];
+    const list = item["regional"];
+    dateWiseHistory[day] = list; 
+  }
+  await AsyncStorage.setItem("dateWiseHistory", JSON.stringify(dateWiseHistory));
+  return dateWiseHistory;
 });
 
 export const getHistoryData = createAsyncThunk('/getHistoryData', async ()=> {
