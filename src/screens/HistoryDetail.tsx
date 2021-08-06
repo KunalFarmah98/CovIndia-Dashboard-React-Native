@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const HistoryDetails = () => {
+const HistoryDetail = () => {
   return (
     <View>
       <Text>HistoryDetails</Text>
@@ -9,4 +9,4 @@ const HistoryDetails = () => {
   );
 };
 
-export default HistoryDetails;
+export default HistoryDetail;

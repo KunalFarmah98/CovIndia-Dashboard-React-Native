@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import daily from "../api/daily";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import DailyData from "../model/DailyData";
 
 // data gives statewise case data for current day
 // history gives national daily stats per date 
@@ -10,7 +9,7 @@ const initialState = {
     data: [],
     history: [],
     activeStateList: [],
-    summary: {}
+    summary: {},
 }
 
 const comparator = (a, b) => {

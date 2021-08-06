@@ -57,7 +57,7 @@ const Dashboard = () => {
           <Text style = {styles.actionHelp} onPress = {()=>{navigation.navigate('Helpline')}}>Seek Help</Text>
         </View>
         <View style={styles.search}>
-          {isSearching?<SearchBar placeholder = 'Search for a State' onSearch = {search}/>
+          {isSearching?<SearchBar placeholder = 'Search for a State' onSearch = {search} isSearching = {setIsSearching}/>
           :
           <Text style = {styles.stateWise}>Statewise Statistics:</Text>
           }
