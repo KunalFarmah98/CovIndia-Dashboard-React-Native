@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import { COLORS } from "../theme/Colors";
 
 
-const Statistics = ({name, active, recovered, deceased, format})=>{
+const Statistics = ({name, active, recovered, deceased, format ,isRecent =false})=>{
 
     const getLocaleNumber = (val:String)=>{
     if(val===undefined)
@@ -21,7 +21,7 @@ const Statistics = ({name, active, recovered, deceased, format})=>{
         <View>
             {name.length>0?<Text style= {styles.header}>{name}:</Text>:null}
             <View style = {styles.row}>
-                <Text style = {styles.active}>Active:{'\n'}{getLocaleNumber(active)}</Text>
+                <Text style = {styles.active}>{isRecent?'Cases':'Active'}:{'\n'}{getLocaleNumber(active)}</Text>
                 <Text style = {styles.recovered}>Recovered:{'\n'}{getLocaleNumber(recovered)}</Text>
                 <Text style = {styles.deceased}>Deceased:{'\n'}{getLocaleNumber(deceased)}</Text>
             </View>

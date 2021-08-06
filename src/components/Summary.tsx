@@ -65,7 +65,7 @@ const Summary = ()=>{
             </View>
 
             {data.deltaconfirmed>0 || data.deltarecovered>0 || data.deltadeceased>0?
-                <Statistics name=  "Recent Statistics" active = {data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format = {getLocaleNumber}/>
+                <Statistics name=  "Recent Statistics" active = {data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format = {getLocaleNumber} isRecent/>
                 :
                 null
             }

@@ -5,7 +5,7 @@ import Pie from 'react-native-pie'
 
 
 
-const Details = ({active, recovered, deceased, total})=>{
+const Details = ({active, recovered, deceased, total ,isRecent=false})=>{
 
     const getLocaleNumber = (val:String)=>{
     if(val===undefined)
@@ -26,9 +26,22 @@ const getPercentage = (val:String ,total:String) => {
             return parseInt(Math.round(fraction*100).toString());
     }
 
-    const active_p = getPercentage(active,total);
-    let recovered_p = getPercentage(recovered,total);
-    const deceased_p = getPercentage(deceased,total);
+    let total_;
+    if(isRecent){
+        total_ = (Number(active)+Number(recovered)+Number(deceased)).toString();
+    }
+    else{
+        total_=total;
+    }
+
+    console.log(active);
+    console.log(recovered);
+    console.log(deceased);
+    console.log(total_);
+
+    let active_p = getPercentage(active,total_);
+    let recovered_p = getPercentage(recovered,total_);
+    let deceased_p = getPercentage(deceased,total_);
 
     // making sum = 100 in case of wrong roundoff
     recovered_p += (100-(active_p+deceased_p+recovered_p));

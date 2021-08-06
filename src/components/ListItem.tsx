@@ -29,7 +29,7 @@ const ListItem = (item, format) => {
                 <Text style = {styles.total}>Total Cases: {getLocaleNumber(data.confirmed)}</Text>
                 {data.deltaconfirmed>0 || data.deltarecovered>0 || data.deltadeaths>0 ?
                     <View>
-                        <Statistics name = "Recently Reported" active = {data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format={format}/>
+                        <Statistics name = "Recently Reported" active = {data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format={format} isRecent/>
                         <Statistics name = "Total Statistics" active = {data.active} recovered = {data.recovered} deceased = {data.deaths} format={format}/>
                     </View>
                     :
