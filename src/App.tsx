@@ -6,7 +6,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import { fetchDailyData, getDailyData } from './redux/DailySlice';
 import { useEffect } from 'react';
 
-
 const App = () => {
 
   const dispatch = useDispatch();
@@ -20,7 +19,6 @@ const App = () => {
   useEffect(()=>{
     getData();
   },[]);
-
 
 
   return(

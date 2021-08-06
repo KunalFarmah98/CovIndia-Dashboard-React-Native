@@ -9,9 +9,7 @@ import { useSelector } from "react-redux";
 
 const Summary = ()=>{
 
-      const data = useSelector(state=>state.daily.data[0]);
-      console.log(data);
-
+      const data = useSelector(state=>state.daily.summary);
       const getLocaleNumber = (val:String)=>{
         if(val===undefined)
         return 0;
@@ -38,15 +36,13 @@ const Summary = ()=>{
     // making sum = 100 in case of wrong roundoff
     recovered_p += (100-(active_p+deceased_p+recovered_p));
 
-    console.log({active_p,recovered_p, deceased_p});
-
     return (
         <View style = {styles.card}>
             <View style = {styles.header1}>
                 <Text style = {styles.india}>India</Text>
-                <Text style = {styles.totalCases}>Total Cases:{'\n'}{getLocaleNumber(data.confimed)}</Text>
+                <Text style = {styles.totalCases}>Total Cases:{'\n'}{getLocaleNumber(data.confirmed)}</Text>
             </View>
-            <View style = {{alignItems:'center', marginVertical:10}}>
+            <View style = {{alignItems:'center', marginBottom:10}}>
             <Pie
               radius={90}
               innerRadius={50}

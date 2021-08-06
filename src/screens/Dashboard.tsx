@@ -1,24 +1,37 @@
-import CookieManager from '@react-native-cookies/cookies';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {View, Text, StyleSheet, TextInput, FlatList, ScrollView} from 'react-native';
 import { useSelector } from 'react-redux';
 import Summary from '../components/Summary';
 import { COLORS } from '../theme/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ListItem from '../components/ListItem';
+import SearchBar from '../components/SearchBar';
+import { useNavigation } from '@react-navigation/native';
+import Links from '../assets/links';
 
 
 const Dashboard = () => {
 
-  const data = useSelector(state=>state.daily.data);
-  const summary = data[0];
-  const [list, setList] = useState(data.slice(1));
-  console.log('........................'+list);
+  const navigation = useNavigation();
+
+  const data = useSelector(state=>state.daily.activeStateList);
+  const summary = useSelector(state=>state.daily.summary);
+
+  const [list, setList] = useState(data);
   const [isSearching,setIsSearching] = useState(false);
-  const [query, setQuery] = useState('');
+  const links = new Links();
 
   const search = (value) => {
-    const newList = [...list].filter(item=>item.state.statsWith(value));
+    if(value.length===0){
+      setList(data);
+      return;
+    }
+    const oldList = [...data];
+    let newList = oldList.filter(item=>{
+      const check = item.state.toLowerCase();
+      return check.startsWith(value.toString().toLowerCase());
+    });
+    console.info(newList);
     setList(newList);
   }
 
@@ -39,31 +52,26 @@ const Dashboard = () => {
       <View>
         <Summary/>
         <Text style = {styles.refreshed}>Last Refreshed: {summary.lastupdatedtime}</Text>
-
-
         <View style = {styles.buttons}>
-          <Text style = {styles.actionVaccination}>Are you 18+? Get Vaccinated</Text>
-          <Text style = {styles.actionHelp}>Seek Help</Text>
+          <Text style = {styles.actionVaccination} onPress = {()=>{navigation.navigate('WebView', { screen: 'WebViewScreen', params:{title: "COWIN Vaccine Registration", link: links.VACCINE_REG}})}}>Are you 18+?  Get Vaccinated</Text>
+          <Text style = {styles.actionHelp} onPress = {()=>{navigation.navigate('Helpline')}}>Seek Help</Text>
         </View>
-        <View style={[styles.buttons,{justifyContent:'space-around'}]}>
-          {isSearching?<TextInput
-          value = {query}
-          onChange = {value => {setQuery(value); search(value);}}
-          onSubmit = {value => {setQuery(value); search(value);}}/>
+        <View style={styles.search}>
+          {isSearching?<SearchBar placeholder = 'Search for a State' onSearch = {search}/>
           :
-          <Text style = {{alignSelf:'center', fontSize: 16}}>Statewise Statistics:</Text>
+          <Text style = {styles.stateWise}>Statewise Statistics:</Text>
           }
           {isSearching?
-              <Icon style = {{alignSelg:'center'}} name = "close" size={23} color = {'black'} onPress={()=>{setIsSearching(false); setList(data.slice(1));}}/>
+              <Icon style = {{alignSelf:'center', marginStart: 10}} name = "close" size={23} color = {'black'} onPress={()=>{setIsSearching(false); setList(data);}}/>
             :
-              <Icon style = {{alignSelg:'center'}} name = "magnify" size={23} color = {'black'} onPress={()=>{setIsSearching(true)}}/>
+              <Icon style = {{alignSelf:'center', marginStart: 10}} name = "magnify" size={23} color = {'black'} onPress={()=>{setIsSearching(true)}}/>
           }
         </View>
 
         <FlatList
           data = {list}
-          keyExtractor = {(item)=>item.name}
-          renderItem = {data=> <ListItem data = {list} format = {getLocaleNumber}/>
+          keyExtractor = {(item)=>{let id = item.state; id+=item.statecode; return id;}}
+          renderItem = {data=> <ListItem item = {data} format = {getLocaleNumber}/>
           }/>
 
       </View>
@@ -100,7 +108,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: COLORS.primary,
     borderRadius: 10
-  }
+  },
+  search:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
+    margin: 10,
+    alignSelf: 'center',
+  },
+  stateWise:{
+    alignSelf:'center', 
+    fontSize: 16, 
+    marginVertical: 10
+    }
 })
 
 export default Dashboard;

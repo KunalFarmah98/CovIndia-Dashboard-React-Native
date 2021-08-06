@@ -7,7 +7,7 @@ const Statistics = ({name, active, recovered, deceased, format})=>{
 
     const getLocaleNumber = (val:String)=>{
     if(val===undefined)
-      return 0;
+        return 0;
     val=  val.toString();
     var lastThree = val.substring(val.length-3);
     var otherNumbers = val.substring(0,val.length-3);
@@ -17,7 +17,6 @@ const Statistics = ({name, active, recovered, deceased, format})=>{
     return res;
 }
 
-    console.log({name, active, recovered, deceased, format});
     return(
         <View>
             {name.length>0?<Text style= {styles.header}>{name}:</Text>:null}
@@ -36,10 +35,11 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: COLORS.primary,
         padding: 5,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     row:{
         marginHorizontal: 20,
+        marginTop:5,
         marginBottom:10,
         flexDirection: 'row',
         justifyContent: 'space-between',

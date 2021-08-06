@@ -1,12 +1,15 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { COLORS } from "../theme/Colors";
 import Statistics from "./Statistics";
 
 
 
-const ListItem = (data, format) => {
+const ListItem = (item, format) => {
 
+    const navigation = useNavigation();
+    const data = item.item.item
     const getLocaleNumber = (val:String)=>{
         if(val===undefined)
         return 0;
@@ -20,19 +23,21 @@ const ListItem = (data, format) => {
     }
 
     return(
-        <View style = {styles.card}>
-            <Text style = {styles.header}>{data.name}</Text>
-            <Text style = {styles.total}>Total Cases: {getLocaleNumber(data.confirmed)}</Text>
-            {data.deltaconfirmed>0 || data.deltarecovered>0 || data.deltadeaths>0 ?
-                <View>
-                    <Statistics name = "Recently Reported" active = {data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format={format}/>
-                    <Statistics name = "Total Statistics" active = {data.confirmed} recovered = {data.recovered} deceased = {data.deaths} format={format}/>
-                </View>
-                :
-                <Statistics name = "" active = {data.confirmed} recovered = {data.recovered} deceased = {data.deaths} format={format}/>
-            }
+        <TouchableOpacity onPress={()=>{navigation.navigate('Detail',{title: data.state, data: data})}}>
+            <View style = {styles.card}>
+                <Text style = {styles.header}>{data.state}</Text>
+                <Text style = {styles.total}>Total Cases: {getLocaleNumber(data.confirmed)}</Text>
+                {data.deltaconfirmed>0 || data.deltarecovered>0 || data.deltadeaths>0 ?
+                    <View>
+                        <Statistics name = "Recently Reported" active = {data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format={format}/>
+                        <Statistics name = "Total Statistics" active = {data.active} recovered = {data.recovered} deceased = {data.deaths} format={format}/>
+                    </View>
+                    :
+                    <Statistics name = "" active = {data.active} recovered = {data.recovered} deceased = {data.deaths} format={format}/>
+                }
 
-        </View>
+            </View>
+        </TouchableOpacity>
     );
 };
 
@@ -41,7 +46,8 @@ const styles = StyleSheet.create({
         marginHorizontal:10, 
         marginVertical: 5, 
         borderColor: COLORS.primaryDark,
-        borderRadius: 10
+        borderRadius: 10,
+        borderWidth: 2
     },
     header:{
         color: 'black',

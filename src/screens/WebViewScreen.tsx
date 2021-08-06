@@ -29,18 +29,6 @@ const IndicatorLoadingView = () => {
 
 const WebViewScreen = ({route})=>{
     const url = route.params.link;
-    console.log(url);
-
-    const [currUrl,setCurrUrl] = useState(url);
-    const [canGoBack,setCanGoBack] = useState(false);
-
-
-    const handleNavigation = (navState)=>{
-
-        console.log(navState);
-        setCurrUrl(navState.url);
-
-    }
 
     const webViewRef = useRef(null);
     useFocusEffect(
@@ -70,7 +58,7 @@ const WebViewScreen = ({route})=>{
         javaScriptEnabled = {true}
         renderLoading = {IndicatorLoadingView}
         ref={webViewRef}
-        onNavigationStateChange = {(navState)=>{handleNavigation(navState)}}/>
+        />
     );
 
 

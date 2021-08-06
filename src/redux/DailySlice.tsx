@@ -8,8 +8,18 @@ import DailyData from "../model/DailyData";
 const initialState = {
     status: 'loading',
     data: [],
-    history: []
+    history: [],
+    activeStateList: [],
+    summary: {}
 }
+
+const comparator = (a, b) => {
+    if(Number(a.confirmed)>Number(b.confirmed)){
+      return -1;
+    }
+    else 
+      return 1;
+};
 
 export const fetchDailyData = createAsyncThunk('/fetchDailyData', async () => {
   console.log('calling fetch');
@@ -50,8 +60,19 @@ const dailySlice = createSlice({
     },
     [fetchDailyData.fulfilled]: (state,action)=>{
       console.log('done');
-      state.data = action.payload.data;
+      const data = action.payload.data;
+      state.summary = data[0];
+      state.data = data;
       state.history = action.payload.history;
+      let l = data.length;
+      let list = [];
+      for(let i=1; i<l ; i++){
+        if(data[i].state!='State Unassigned')
+          list.push(data[i]);
+      }
+      list.sort(comparator);
+      console.info(list);
+      state.activeStateList = list;
       state.status = 'idle'
     },
     [getDailyData.pending]: (state,action)=>{

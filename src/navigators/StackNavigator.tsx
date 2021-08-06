@@ -10,9 +10,11 @@ import Helpline from '../screens/Helpline';
 import WebViewScreen from '../screens/WebViewScreen';
 import CookieManager from '@react-native-cookies/cookies';
 import OptionsMenu from '../components/OptionsMenu';
+import Detail from '../screens/Detail';
 
 
 const HomeStack = createStackNavigator();
+const DetailStack = createStackNavigator();
 const HistoryStack = createStackNavigator();
 const HelplineStack = createStackNavigator();
 const WebViewStack = createStackNavigator();
@@ -46,9 +48,50 @@ const HomeStackScreen = () => {
         })}
         component={BottomTabNavigator}
       />
+      <HomeStack.Screen
+        name="Detail"
+        options={({route,navigation})=>({
+          headerShown: true,
+          headerTitle: route.params.title,
+          headerLeft: () => {
+            return (
+              <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+                <Item title="Back" iconName='arrow-back' color = 'white' onPress = {()=>{navigation.goBack()}}/>
+                </HeaderButtons>
+            )
+          },
+        })}
+        component={Detail}/>
     </HomeStack.Navigator>
   );
 };
+
+// const DetailStackScreen = () => {
+//   return (
+//     <DetailStack.Navigator
+//     screenOptions={{
+//               headerStyle : {backgroundColor: COLORS.primary},
+//               headerTintColor:'#fff'
+//             }}>
+//       <DetailStack.Screen
+//         name="DetailScreen"
+//         options={({route,navigation})=>({
+//           headerShown: true,
+//           headerTitle: route.params.title,
+//           headerLeft: () => {
+//             return (
+//               <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+//                 <Item title="Back" iconName='arrow-back' color = 'white' onPress = {()=>{navigation.goBack()}}/>
+//                 </HeaderButtons>
+//             )
+//           },
+//           headerRight: ()=>{return <OptionsMenu/>}
+//         })}
+//         component={Detail}
+//       />
+//     </DetailStack.Navigator>
+//   );
+// };
 
 const HistoryStackScreen = () => {
   return (
