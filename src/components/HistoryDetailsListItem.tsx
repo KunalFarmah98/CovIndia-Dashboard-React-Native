@@ -45,13 +45,15 @@ const styles = StyleSheet.create({
         fontWeight:'700',
         color: 'black',
         marginVertical:5,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textAlign:'center'
     },
     header:{
         fontSize:18,
         fontWeight: '700',
         color: COLORS.primaryDark,
         padding: 5,
+        textAlign: 'center',
         alignSelf: 'center',
     },
     row:{

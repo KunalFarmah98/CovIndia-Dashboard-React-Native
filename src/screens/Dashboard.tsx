@@ -49,7 +49,7 @@ const Dashboard = () => {
 
   return (
     <ScrollView>
-      <View>
+      <View style = {{backgroundColor: '#FFFFFF'}}>
         <Summary/>
         <Text style = {styles.refreshed}>Last Refreshed: {summary.lastupdatedtime}</Text>
         <View style = {styles.buttons}>
@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignContent: 'center',
-    margin: 10,
+    marginVertical: 10,
+    marginHorizontal: 15,
     alignSelf: 'center',
   },
   stateWise:{

@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HistoryDetailsListItem from '../components/HistoryDetailsListItem';
 import { ScrollView } from 'react-native-gesture-handler';
+import NoHistory from '../components/NoHistory';
 
 
 const HistoryDetail = ({ route }) => {
@@ -73,9 +74,15 @@ const HistoryDetail = ({ route }) => {
   };
 
   const key = getDate(date);
-  const data_ = useSelector(state => state.history.data[key]);
-  let data =[...data_];
-  data.sort(comparator);
+  let data_ = [], data = [];
+  try{
+    data_ = useSelector(state => state.history.data[key]);
+    data =[...data_];
+    data.sort(comparator);
+  }
+  catch(err){
+    console.error("No history available");
+  }
   const [list, setList] = useState(data);
   const [isSearching, setIsSearching] = useState(false);
 
@@ -86,7 +93,7 @@ const HistoryDetail = ({ route }) => {
         <HistoryDetailsHeader date={date} dailyActive={summary.dailyconfirmed} dailyRecovered={summary.dailyrecovered}
           dailyDeceased={summary.dailydeceased} totalActive={summary.totalconfirmed} totalRecovered={summary.totalrecovered}
           totalDeceased={summary.totaldeceased} />
-
+        {list && list.length>0?
         <View style={styles.search}>
           {isSearching ? <SearchBar placeholder='Search for a State' onSearch={search} isSearching={setIsSearching} />
             :
@@ -98,7 +105,9 @@ const HistoryDetail = ({ route }) => {
             <Icon style={{ alignSelf: 'center', marginStart: 10 }} name="magnify" size={23} color={'black'} onPress={() => { setIsSearching(true) }} />
           }
         </View>
-
+        :
+        null}
+        {(list && list.length>0)?
         <FlatList
           data={list}
           keyExtractor={(item) => item.loc}
@@ -106,6 +115,9 @@ const HistoryDetail = ({ route }) => {
             return (
               <HistoryDetailsListItem name={data.loc} item={data} />);
           }} />
+          :
+          <NoHistory/>
+        }
       </View>
     </ScrollView>
   );
@@ -117,6 +129,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     margin: 10,
+    marginVertical: 10,
+    marginHorizontal: 15,
     alignSelf: 'center',
   },
   stateWise: {

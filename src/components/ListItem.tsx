@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
         marginVertical: 5, 
         borderColor: COLORS.primaryDark,
         borderRadius: 10,
+        backgroundColor: 'white',
         borderWidth: 2
     },
     header:{

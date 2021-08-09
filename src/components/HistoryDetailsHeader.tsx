@@ -77,7 +77,8 @@ const getPercentage = (val:String ,total:String) => {
 
 const styles = StyleSheet.create({
     card:{
-        margin: 10,
+        marginVertical: 10,
+        marginHorizontal: 15,
         borderRadius: 10,
         borderWidth: 2,
         backgroundColor: 'white',
