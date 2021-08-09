@@ -4,6 +4,7 @@ import { COLORS } from "../theme/Colors";
 import Statistics from "./Statistics";
 import Pie from 'react-native-pie'
 import { useSelector } from "react-redux";
+import {Card} from 'react-native-paper';
 
 
 
@@ -37,7 +38,9 @@ const Summary = ()=>{
     recovered_p += (100-(active_p+deceased_p+recovered_p));
 
     return (
-        <View style = {styles.card}>
+      <Card style = {styles.card} mode='elevated' elevation={10}>
+        <Card.Content>
+        <View>
             <View style = {styles.header1}>
                 <Text style = {styles.india}>India</Text>
                 <Text style = {styles.totalCases}>Total Cases:{'\n'}{getLocaleNumber(data.confirmed)}</Text>
@@ -63,6 +66,7 @@ const Summary = ()=>{
               strokeCap={'round'}
             />
             </View>
+            
 
             {data.deltaconfirmed>0 || data.deltarecovered>0 || data.deltadeceased>0?
                 <Statistics name=  "Recent Statistics" active = {data.deltaconfirmed} recovered = {data.deltarecovered} deceased = {data.deltadeaths} format = {getLocaleNumber} isRecent/>
@@ -73,6 +77,8 @@ const Summary = ()=>{
             <Statistics name= "Total Statistics" active ={data.active} recovered={data.recovered} deceased=  {data.deaths} format = {getLocaleNumber}/>
 
         </View>
+        </Card.Content>
+      </Card>
     );
 }
 
@@ -82,12 +88,14 @@ const styles = StyleSheet.create({
     card:{
         borderColor: COLORS.primaryDark,
         borderWidth: 2,
-        margin: 10,
+        marginVertical: 10,
+        marginHorizontal: 15,
         backgroundColor: 'white',
         borderRadius: 10
     },
     header1:{
-        margin: 10,
+        marginHorizontal: 10,
+        marginBottom:10,
         justifyContent: 'space-between',
         flexDirection: 'row'
     },

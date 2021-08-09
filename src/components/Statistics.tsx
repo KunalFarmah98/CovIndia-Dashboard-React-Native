@@ -35,12 +35,12 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: COLORS.primary,
         padding: 5,
+        marginTop: 10,
         alignSelf: 'center',
     },
     row:{
         marginHorizontal: 20,
         marginTop:5,
-        marginBottom:10,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
