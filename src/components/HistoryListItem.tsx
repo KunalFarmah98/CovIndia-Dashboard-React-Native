@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     card: {
         borderColor: COLORS.primaryDark,
         borderWidth: 2,
-        marginVertical: 10,
-        marginHorizontal: 15,
+        marginVertical: 15,
+        marginHorizontal: 10,
         backgroundColor: 'white',
         borderRadius: 10
     },
@@ -77,17 +77,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     active: {
-        fontSize: 17,
+        fontSize: 15,
         color: COLORS.pieBlue,
         textAlign: 'center'
     },
     recovered: {
-        fontSize: 17,
+        fontSize: 15,
         color: COLORS.pieGreen,
         textAlign: 'center'
     },
     deceased: {
-        fontSize: 17,
+        fontSize: 15,
         color: COLORS.pieRed,
         textAlign: 'center'
     }

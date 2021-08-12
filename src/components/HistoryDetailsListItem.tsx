@@ -39,7 +39,7 @@ const HistoryDetailsListItem = ({ name, item }) => {
 const styles = StyleSheet.create({
     card: {
         borderColor: COLORS.primaryDark,
-        borderWidth: 2,
+        borderWidth: 3,
         marginVertical: 10,
         marginHorizontal: 15,
         backgroundColor: 'white',
@@ -53,10 +53,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     header: {
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: '700',
         color: COLORS.primaryDark,
-        padding: 5,
         marginTop: 5,
         textAlign: 'center',
         alignSelf: 'center',
@@ -68,12 +67,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     recovered: {
-        fontSize: 17,
+        fontSize: 15,
         color: COLORS.pieGreen,
         textAlign: 'center'
     },
     deceased: {
-        fontSize: 17,
+        fontSize: 15,
         color: COLORS.pieRed,
         textAlign: 'center'
     }

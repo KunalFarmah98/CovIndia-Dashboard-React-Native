@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
     header: {
         color: 'black',
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: 18,
         marginBottom: 10,
         fontWeight: '700',
     },
     total: {
         color: COLORS.primary,
-        fontSize: 17,
+        fontSize: 16,
         textAlign: 'center',
         marginBottom: 10,
     }

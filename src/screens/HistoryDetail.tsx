@@ -97,7 +97,7 @@ const HistoryDetail = ({ route }) => {
         <View style={styles.search}>
           {isSearching ? <SearchBar placeholder='Search for a State' onSearch={search} isSearching={setIsSearching} />
             :
-            <Text style={styles.stateWise}>Statewise Statistics:</Text>
+            <Text style={styles.stateWise}>Statewise History:</Text>
           }
           {isSearching ?
             <Icon style={{ alignSelf: 'center', marginStart: 10 }} name="close" size={23} color={'black'} onPress={() => { setIsSearching(false); setList(data); }} />

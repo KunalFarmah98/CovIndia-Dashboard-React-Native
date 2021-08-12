@@ -83,47 +83,43 @@ const HistoryDetailsHeader = ({ date, dailyActive, dailyRecovered, dailyDeceased
 
 const styles = StyleSheet.create({
     card: {
-        marginVertical: 10,
-        marginHorizontal: 15,
+        margin: 10,
         borderRadius: 10,
-        borderWidth: 2,
+        borderWidth: 3,
         backgroundColor: 'white',
         borderColor: COLORS.primaryDark
     },
     title: {
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: '500',
+        marginTop:10,
         color: COLORS.primary,
-        padding: 5,
         alignSelf: 'center',
     },
     header: {
-        fontSize: 25,
+        fontSize: 23,
         color: 'black',
-        padding: 5,
         fontWeight: '700',
         marginBottom: 5,
         alignSelf: 'center',
     },
     row: {
         marginHorizontal: 20,
-        marginTop: 5,
-        marginBottom: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
     active: {
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieBlue,
         textAlign: 'center'
     },
     recovered: {
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieGreen,
         textAlign: 'center'
     },
     deceased: {
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieRed,
         textAlign: 'center'
     }

@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         borderColor: COLORS.primaryDark
     },
     header:{
-        fontSize:18,
+        fontSize:17,
         color: COLORS.primary,
         padding: 5,
         fontWeight: '700',
@@ -107,17 +107,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     active:{
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieBlue,
         textAlign:'center'
     },
     recovered:{
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieGreen,
         textAlign:'center'
     },
     deceased:{
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieRed,
         textAlign:'center'
     }

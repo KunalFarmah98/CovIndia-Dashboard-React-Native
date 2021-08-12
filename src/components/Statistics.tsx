@@ -45,17 +45,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     active:{
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieBlue,
         textAlign:'center'
     },
     recovered:{
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieGreen,
         textAlign:'center'
     },
     deceased:{
-        fontSize: 17,
+        fontSize: 16,
         color: COLORS.pieRed,
         textAlign:'center'
     }
