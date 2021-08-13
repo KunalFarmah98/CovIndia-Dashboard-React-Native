@@ -49,14 +49,14 @@ const Helpline = () => {
       <View style = {styles.card}>
           <View style={styles.row}>
             <Text style = {styles.key}>India Covid-19{"\n"}Helpline Number:</Text>
-            <TouchableOpacity onPress={call('1075')}>
+            <TouchableOpacity onPress={()=>{call('1075')}}>
               <Text style = {styles.number}>1075</Text>
             </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
               <Text style = {styles.key}>Ministry of Health {"\n"}Website:</Text>
-              <TouchableOpacity onPress={()=>{navigation.navigate('WebViewScreen',{title: "Helpline", link: 'https://www.mohfw.gov.in'})}}>
+              <TouchableOpacity onPress={()=>{navigation.navigate('WebView',{screen:'WebViewScreen',params:{title: "Helpline", link: 'https://www.mohfw.gov.in'}})}}>
                 <Text style = {styles.number}>https://www.mohfw.gov.in</Text>
               </TouchableOpacity>
             </View>
@@ -76,7 +76,7 @@ const Helpline = () => {
       <FlatList
             data = {contactsList}
             keyExtractor = {(item)=>{item.loc}}
-            renderItem = {data=> <ContactsListItem item = {data} onClick = {call}/>
+            renderItem = {data=> <ContactsListItem item = {data} onCall = {call}/>
             }/>
     </View>
   );

@@ -4,6 +4,7 @@ import {WebView} from 'react-native-webview';
 import {BackHandler, ActivityIndicator, StyleSheet, View} from 'react-native'; 
 import CookieManager from '@react-native-cookies/cookies';
 import {COLORS} from '../theme/Colors'
+import { useNavigation } from '@react-navigation/native';
 
 
 const IndicatorLoadingView = () => {
@@ -32,7 +33,7 @@ const IndicatorLoadingView = () => {
 
 const WebViewScreen = ({route})=>{
     const url = route.params.link;
-
+    const navigation = useNavigation();
     const webViewRef = useRef(null);
     const [loading,setLoading] = useState(true);
     useFocusEffect(
@@ -43,7 +44,11 @@ const WebViewScreen = ({route})=>{
                   .then((res) => {
                       webViewRef.current.setS
                       console.log('CookieManager.clearAll =>', res)
-                      return false;
+                      if(route.params.title==='Helpline'){
+                        navigation.navigate('Helpline');
+                      }
+                      else
+                        return false;
                   });
             };
 

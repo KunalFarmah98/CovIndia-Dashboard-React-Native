@@ -2,17 +2,16 @@ import React from "react";
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
 import { COLORS } from "../theme/Colors";
 
-const ContactsListItem = ({item, onClick}) => {
+const ContactsListItem = ({item, onCall}) => {
     
     return(
         <View style = {styles.card} >
-            
-                <View style = {styles.row}>
-                    <Text style = {styles.key}>{item.item.loc}</Text>
-                    <TouchableOpacity onPress={onClick(item.item.number)}>
-                        <Text style = {styles.number}>{item.item.number}</Text>
-                    </TouchableOpacity>
-                </View>
+            <View style = {styles.row}>
+                <Text style = {styles.key}>{item.item.loc}</Text>
+                <TouchableOpacity onPress={()=>{onCall(item.item.number)}}>
+                    <Text style = {styles.number}>{item.item.number}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
