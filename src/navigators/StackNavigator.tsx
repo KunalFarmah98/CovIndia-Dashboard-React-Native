@@ -80,33 +80,6 @@ const HomeStackScreen = () => {
   );
 };
 
-// const DetailStackScreen = () => {
-//   return (
-//     <DetailStack.Navigator
-//     screenOptions={{
-//               headerStyle : {backgroundColor: COLORS.primary},
-//               headerTintColor:'#fff'
-//             }}>
-//       <DetailStack.Screen
-//         name="DetailScreen"
-//         options={({route,navigation})=>({
-//           headerShown: true,
-//           headerTitle: route.params.title,
-//           headerLeft: () => {
-//             return (
-//               <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-//                 <Item title="Back" iconName='arrow-back' color = 'white' onPress = {()=>{navigation.goBack()}}/>
-//                 </HeaderButtons>
-//             )
-//           },
-//           headerRight: ()=>{return <OptionsMenu/>}
-//         })}
-//         component={Detail}
-//       />
-//     </DetailStack.Navigator>
-//   );
-// };
-
 const HistoryStackScreen = () => {
   return (
     <HistoryStack.Navigator
@@ -181,7 +154,10 @@ const WebViewStackScreen = () => {
                   .clearAll(true)
                   .then((res) => {
                       console.log('CookieManager.clearAll =>', res)
-                      navigation.goBack();
+                      if(route.params.title==='Helpline')
+                        navigation.navigate('Helpline');
+                      else
+                        navigation.goBack();
                   });
                 }}/>
               </HeaderButtons>
