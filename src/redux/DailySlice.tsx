@@ -5,11 +5,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // data gives statewise case data for current day
 // history gives national daily stats per date 
 const initialState = {
-    status: 'loading',
-    data: [],
-    history: [],
-    activeStateList: [],
-    summary: {},
+  status: 'loading',
+  data: [],
+  history: [],
+  activeStateList: [],
+  summary: {}
 }
 
 const comparator = (a, b) => {
@@ -31,8 +31,12 @@ export const fetchDailyData = createAsyncThunk('/fetchDailyData', async () => {
 });
 
 export const getDailyData = createAsyncThunk('/getDailyData', async ()=> {
-    const data = await AsyncStorage.getItem('dailyData');
-    const history = await AsyncStorage.getItem('dailyHistory');
+    let data = await AsyncStorage.getItem('dailyData');
+    let history = await AsyncStorage.getItem('dailyHistory');
+    if(null!=data)
+      data = JSON.parse(data);
+    if(null!=history)
+      history = JSON.parse(history);
     return {data,history};
 })
 
@@ -79,8 +83,33 @@ const dailySlice = createSlice({
       console.log('pending');
     },
     [getDailyData.fulfilled]: (state,action)=>{
-      state.data = action.payload.data;
-      state.history = action.payload.history;      
+      console.log('done');
+      const data = action.payload.data;
+      const history = action.payload.history;
+
+      // case if no internet on first launch, no offline data present
+      if(!data && !history){
+        console.error("No DATA")
+        state.status = 'idle'
+        state.data=  null
+        state.history = null
+        state.summary = null
+        return
+      }
+
+      state.summary = data[0];
+      state.data = data;
+      state.history = history;
+      
+      let l = data.length;
+      let list = [];
+      for(let i=1; i<l ; i++){
+        if(data[i].state!='State Unassigned')
+          list.push(data[i]);
+      }
+      list.sort(comparator);
+      console.info(list);
+      state.activeStateList = list;
       state.status = 'idle'
     }
   }

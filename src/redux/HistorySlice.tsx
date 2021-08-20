@@ -23,7 +23,8 @@ export const fetchHistoryData = createAsyncThunk('/fetchHistoryData', async () =
 });
 
 export const getHistoryData = createAsyncThunk('/getHistoryData', async ()=> {
-    const data = await AsyncStorage.getItem('dailyData');
+    let data = await AsyncStorage.getItem('dateWiseHistory');
+    if(null!=data) data=JSON.parse(data);
     return data;
 })
 
