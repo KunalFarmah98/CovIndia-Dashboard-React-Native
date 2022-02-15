@@ -8,3 +8,7 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+
+-obfuscationdictionary dict.txt
+-packageobfuscationdictionary dict.txt
+-classobfuscationdictionary dict.txt
